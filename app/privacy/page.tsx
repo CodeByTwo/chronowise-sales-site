@@ -2,8 +2,16 @@ import { Metadata } from "next";
 import { Navbar, Footer, SectionWrapper, FadeIn } from "@/components/marketing";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | ChronoWise",
-  description: "ChronoWise privacy policy and data protection information.",
+  title: "Privacy Policy",
+  description:
+    "ChronoWise privacy policy and data protection information. Learn how we collect, use, and protect your personal data in compliance with GDPR.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://chronowise.co.uk/privacy",
+  },
 };
 
 export default function PrivacyPage() {

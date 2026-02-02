@@ -2,8 +2,16 @@ import { Metadata } from "next";
 import { Navbar, Footer, SectionWrapper, FadeIn } from "@/components/marketing";
 
 export const metadata: Metadata = {
-  title: "Cookie Policy | ChronoWise",
-  description: "ChronoWise cookie policy and tracking information.",
+  title: "Cookie Policy",
+  description:
+    "ChronoWise cookie policy. Learn about the cookies we use, their purposes, and how to manage your cookie preferences.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://chronowise.co.uk/cookies",
+  },
 };
 
 export default function CookiesPage() {

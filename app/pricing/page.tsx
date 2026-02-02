@@ -11,9 +11,18 @@ import Link from "next/link";
 import { ArrowRight, Check, X } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Pricing | ChronoWise",
+  title: "Pricing",
   description:
-    "Simple, affordable pricing for luxury watch jewellers. No enterprise complexity, no hidden fees.",
+    "Simple, affordable pricing for luxury watch jewellers. One plan with all features included. 14-day free trial, no setup fees, no enterprise complexity.",
+  openGraph: {
+    title: "Pricing | ChronoWise",
+    description:
+      "Simple, affordable pricing for luxury watch jewellers. One plan with all features included.",
+    url: "https://chronowise.co.uk/pricing",
+  },
+  alternates: {
+    canonical: "https://chronowise.co.uk/pricing",
+  },
 };
 
 const features = [
@@ -77,9 +86,26 @@ const faqItems = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
 export default function PricingPage() {
   return (
     <main className="relative min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <Navbar />
 
       {/* Hero */}

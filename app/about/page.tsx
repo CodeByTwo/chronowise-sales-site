@@ -9,9 +9,18 @@ import {
 import { Target, Heart, Shield, Lightbulb } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About | ChronoWise",
+  title: "About",
   description:
-    "Built by those who understand the craft. Learn about ChronoWise and our mission to transform luxury watch retail.",
+    "Built by those who understand the craft. Learn about ChronoWise, our story, mission, and values. Created by watch enthusiasts for luxury watch jewellers.",
+  openGraph: {
+    title: "About | ChronoWise",
+    description:
+      "Built by those who understand the craft. Learn about ChronoWise and our mission to transform luxury watch retail.",
+    url: "https://chronowise.co.uk/about",
+  },
+  alternates: {
+    canonical: "https://chronowise.co.uk/about",
+  },
 };
 
 const values = [

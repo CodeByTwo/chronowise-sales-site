@@ -2,8 +2,16 @@ import { Metadata } from "next";
 import { Navbar, Footer, SectionWrapper, FadeIn } from "@/components/marketing";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | ChronoWise",
-  description: "ChronoWise terms of service and conditions of use.",
+  title: "Terms of Service",
+  description:
+    "ChronoWise terms of service and conditions of use. Read our service agreement, user responsibilities, and legal terms.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://chronowise.co.uk/terms",
+  },
 };
 
 export default function TermsPage() {

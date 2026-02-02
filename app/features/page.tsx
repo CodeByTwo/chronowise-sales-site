@@ -33,9 +33,18 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Features | ChronoWise",
+  title: "Features",
   description:
-    "Explore the complete ChronoWise platform. Purpose-built features for luxury watch waitlist management.",
+    "Explore the complete ChronoWise platform. Customer management, wishlist pipeline, watch catalogue, GDPR compliance, analytics, and more. Purpose-built for luxury watch retailers.",
+  openGraph: {
+    title: "Features | ChronoWise",
+    description:
+      "Explore the complete ChronoWise platform. Purpose-built features for luxury watch waitlist management.",
+    url: "https://chronowise.co.uk/features",
+  },
+  alternates: {
+    canonical: "https://chronowise.co.uk/features",
+  },
 };
 
 const featureCategories = [
