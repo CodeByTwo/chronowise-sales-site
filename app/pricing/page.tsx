@@ -63,7 +63,7 @@ const faqItems = [
   {
     question: "Is my data secure?",
     answer:
-      "Yes. We use bank-grade encryption for all data at rest and in transit. Your customer data and watch information are protected with the same standards used by financial institutions.",
+      "Yes. We use robust encryption for all data at rest and in transit. Your customer data and watch information are protected with industry-leading security standards.",
   },
   {
     question: "Can I import my existing customer data?",

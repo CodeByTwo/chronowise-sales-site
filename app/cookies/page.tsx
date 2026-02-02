@@ -147,10 +147,10 @@ export default function CookiesPage() {
                   If you have questions about our use of cookies, please contact
                   us at{" "}
                   <a
-                    href="mailto:privacy@chronowise.io"
+                    href="mailto:privacy@chronowise.co.uk"
                     className="text-gold hover:text-gold-light transition-colors"
                   >
-                    privacy@chronowise.io
+                    privacy@chronowise.co.uk
                   </a>
                   .
                 </p>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 
 const footerLinks = {
   product: [
@@ -44,22 +44,15 @@ export function Footer() {
             </p>
             <div className="mt-6 space-y-3">
               <a
-                href="mailto:hello@chronowise.io"
+                href="mailto:hello@chronowise.co.uk"
                 className="flex items-center gap-3 text-sm text-muted-foreground hover:text-gold transition-colors duration-300"
               >
                 <Mail size={16} />
-                hello@chronowise.io
-              </a>
-              <a
-                href="tel:+441onal234567890"
-                className="flex items-center gap-3 text-sm text-muted-foreground hover:text-gold transition-colors duration-300"
-              >
-                <Phone size={16} />
-                +44 20 1234 5678
+                hello@chronowise.co.uk
               </a>
               <div className="flex items-center gap-3 text-sm text-muted-foreground">
                 <MapPin size={16} />
-                London, United Kingdom
+                Oxfordshire, United Kingdom
               </div>
             </div>
           </div>

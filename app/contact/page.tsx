@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Send, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Send, CheckCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -176,7 +176,7 @@ export default function ContactPage() {
 
               <div className="space-y-6">
                 <a
-                  href="mailto:hello@chronowise.io"
+                  href="mailto:hello@chronowise.co.uk"
                   className="flex items-center gap-4 p-4 rounded-xl bg-card border border-white/10 hover:border-gold/30 transition-colors duration-300"
                 >
                   <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center">
@@ -184,20 +184,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="text-foreground">hello@chronowise.io</p>
-                  </div>
-                </a>
-
-                <a
-                  href="tel:+442012345678"
-                  className="flex items-center gap-4 p-4 rounded-xl bg-card border border-white/10 hover:border-gold/30 transition-colors duration-300"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center">
-                    <Phone size={20} className="text-gold" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground">Phone</p>
-                    <p className="text-foreground">+44 20 1234 5678</p>
+                    <p className="text-foreground">hello@chronowise.co.uk</p>
                   </div>
                 </a>
 
@@ -207,7 +194,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="text-foreground">London, United Kingdom</p>
+                    <p className="text-foreground">Oxfordshire, United Kingdom</p>
                   </div>
                 </div>
               </div>

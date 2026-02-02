@@ -31,7 +31,7 @@ const benefits = [
   },
   {
     icon: Lock,
-    title: "Bank-grade security",
+    title: "Enterprise-grade security",
     description:
       "Two-factor authentication, encrypted data storage, and enterprise-level protection for your client data.",
   },

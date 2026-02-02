@@ -30,7 +30,6 @@ import {
   UserCog,
   Moon,
   Smartphone,
-  Accessibility,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -277,21 +276,9 @@ const featureCategories = [
         description: "MFA/TOTP support for secure account access.",
       },
       {
-        icon: Database,
-        title: "Row-Level Security",
-        description:
-          "Granular security policies ensure data isolation and protection.",
-      },
-      {
         icon: History,
         title: "Complete Audit Logging",
         description: "Every action is logged for security and compliance.",
-      },
-      {
-        icon: Lock,
-        title: "Encrypted Serial Numbers",
-        description:
-          "Sensitive watch serial numbers are encrypted at rest.",
       },
       {
         icon: ShieldCheck,
@@ -327,17 +314,6 @@ const featureCategories = [
         title: "Modern Interface",
         description:
           "Clean, intuitive design that requires minimal training.",
-      },
-      {
-        icon: Clock,
-        title: "Loading States",
-        description:
-          "Smooth skeleton loaders provide feedback during data fetching.",
-      },
-      {
-        icon: Accessibility,
-        title: "Accessibility Compliant",
-        description: "Built with accessibility standards in mind.",
       },
     ],
   },

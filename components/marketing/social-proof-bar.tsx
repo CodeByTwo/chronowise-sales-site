@@ -1,54 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Clock, Shield, Award } from "lucide-react";
 
-const placeholderLogos = [
-  "Maison Horlogère",
-  "Crown Jewellers",
-  "Prestige Time",
-  "Royal Watch Co",
-  "Heritage Gems",
-  "Elite Horology",
+const highlights = [
+  {
+    icon: Clock,
+    text: "Built for luxury watch retail",
+  },
+  {
+    icon: Award,
+    text: "Developed with heritage jewellers",
+  },
+  {
+    icon: Shield,
+    text: "GDPR compliant by design",
+  },
 ];
 
 export function SocialProofBar() {
   return (
-    <section className="relative bg-[#111113] py-16 overflow-hidden">
+    <section className="relative bg-[#111113] py-12 overflow-hidden">
       {/* Top border accent */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center text-sm tracking-widest uppercase text-muted-foreground mb-12"
-        >
-          Trusted by discerning jewellers worldwide
-        </motion.p>
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center items-center gap-8 lg:gap-16"
+          transition={{ duration: 0.6 }}
+          className="flex flex-col sm:flex-row justify-center items-center gap-8 lg:gap-16"
         >
-          {placeholderLogos.map((name, index) => (
-            <motion.div
-              key={name}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 * index }}
-              className="text-muted-foreground/40 hover:text-muted-foreground/60 transition-colors duration-300"
-            >
-              <span className="font-serif text-lg tracking-wider whitespace-nowrap">
-                {name}
-              </span>
-            </motion.div>
-          ))}
+          {highlights.map((item, index) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.text}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1 * index }}
+                className="flex items-center gap-3 text-muted-foreground"
+              >
+                <Icon size={18} className="text-gold" />
+                <span className="text-sm tracking-wide">{item.text}</span>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
 

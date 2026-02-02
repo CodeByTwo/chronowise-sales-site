@@ -62,15 +62,7 @@ export function Navbar() {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link href="/contact">
-              <Button
-                variant="ghost"
-                className="text-muted-foreground hover:text-foreground tracking-wider text-sm"
-              >
-                Sign In
-              </Button>
-            </Link>
+          <div className="hidden md:flex items-center">
             <Link href="/contact">
               <Button className="bg-gold hover:bg-gold-light text-background font-medium tracking-wider text-sm px-6 transition-all duration-300 hover:shadow-lg hover:shadow-gold/20">
                 Request Demo
@@ -110,15 +102,7 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-white/5 space-y-3">
-                <Link href="/contact" className="block">
-                  <Button
-                    variant="ghost"
-                    className="w-full text-muted-foreground tracking-wider text-sm"
-                  >
-                    Sign In
-                  </Button>
-                </Link>
+              <div className="pt-4 border-t border-white/5">
                 <Link href="/contact" className="block">
                   <Button className="w-full bg-gold hover:bg-gold-light text-background font-medium tracking-wider text-sm">
                     Request Demo

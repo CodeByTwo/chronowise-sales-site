@@ -147,10 +147,10 @@ export default function TermsPage() {
                   For questions about these Terms of Service, please contact us
                   at{" "}
                   <a
-                    href="mailto:legal@chronowise.io"
+                    href="mailto:legal@chronowise.co.uk"
                     className="text-gold hover:text-gold-light transition-colors"
                   >
-                    legal@chronowise.io
+                    legal@chronowise.co.uk
                   </a>
                   .
                 </p>

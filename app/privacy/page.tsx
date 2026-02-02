@@ -124,10 +124,10 @@ export default function PrivacyPage() {
                   If you have any questions about this Privacy Policy or our
                   data practices, please contact us at{" "}
                   <a
-                    href="mailto:privacy@chronowise.io"
+                    href="mailto:privacy@chronowise.co.uk"
                     className="text-gold hover:text-gold-light transition-colors"
                   >
-                    privacy@chronowise.io
+                    privacy@chronowise.co.uk
                   </a>
                   .
                 </p>

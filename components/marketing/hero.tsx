@@ -107,7 +107,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-12 text-sm text-muted-foreground"
         >
-          Trusted by boutiques across Europe, North America, and Asia Pacific
+          Developed in partnership with established UK watch retailers
         </motion.p>
       </div>
 
