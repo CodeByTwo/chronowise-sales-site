@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -40,45 +39,35 @@ export function Hero() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 py-32 text-center">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="animate-fade-in-up" style={{ animationDelay: "0ms" }}>
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/20 bg-gold/5 text-gold text-xs tracking-widest uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
             For discerning jewellers
           </span>
-        </motion.div>
+        </div>
 
         {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mt-8 font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-foreground"
+        <h1
+          className="mt-8 font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-foreground animate-fade-in-up"
+          style={{ animationDelay: "150ms" }}
         >
           <span className="block">Waitlist management,</span>
           <span className="block mt-2 text-gold-gradient">refined.</span>
-        </motion.h1>
+        </h1>
 
         {/* Subheadline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+        <p
+          className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-fade-in-up"
+          style={{ animationDelay: "300ms" }}
         >
           Purpose-built for luxury watch jewellers. Manage your allocations,
           nurture your clientele, and streamline operations with elegance.
-        </motion.p>
+        </p>
 
         {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
+        <div
+          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up"
+          style={{ animationDelay: "450ms" }}
         >
           <Link href="/contact">
             <Button
@@ -101,37 +90,29 @@ export function Hero() {
               Explore Features
             </Button>
           </Link>
-        </motion.div>
+        </div>
 
         {/* Trust indicator */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-12 text-sm text-muted-foreground"
+        <p
+          className="mt-12 text-sm text-muted-foreground animate-fade-in"
+          style={{ animationDelay: "600ms" }}
         >
           Developed in partnership with established UK watch retailers
-        </motion.p>
+        </p>
       </div>
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#111113] to-transparent" />
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in"
+        style={{ animationDelay: "900ms" }}
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-6 h-10 rounded-full border border-white/20 flex items-start justify-center p-2"
-        >
+        <div className="w-6 h-10 rounded-full border border-white/20 flex items-start justify-center p-2 animate-bounce-slow">
           <div className="w-1 h-2 rounded-full bg-gold" />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

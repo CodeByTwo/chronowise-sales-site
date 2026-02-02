@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -82,37 +81,31 @@ export function Navbar() {
       </nav>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-background border-b border-white/5"
-          >
-            <div className="px-6 py-6 space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors duration-300 uppercase py-2"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="pt-4 border-t border-white/5">
-                <Link href="/contact" className="block">
-                  <Button className="w-full bg-gold hover:bg-gold-light text-background font-medium tracking-wider text-sm">
-                    Request Demo
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        className={`md:hidden bg-background border-b border-white/5 overflow-hidden transition-all duration-300 ${
+          isMobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="px-6 py-6 space-y-4">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block text-sm tracking-wider text-muted-foreground hover:text-foreground transition-colors duration-300 uppercase py-2"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-4 border-t border-white/5">
+            <Link href="/contact" className="block">
+              <Button className="w-full bg-gold hover:bg-gold-light text-background font-medium tracking-wider text-sm">
+                Request Demo
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

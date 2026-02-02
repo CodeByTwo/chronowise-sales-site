@@ -16,7 +16,5 @@ export {
   SectionWrapper,
   AnimatedHeading,
   FadeIn,
-  StaggerChildren,
-  fadeInVariants,
 } from "./section-wrapper";
 

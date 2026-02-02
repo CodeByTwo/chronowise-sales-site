@@ -145,27 +145,3 @@ export function FadeIn({
   );
 }
 
-interface StaggerChildrenProps {
-  children: ReactNode;
-  className?: string;
-  staggerDelay?: number;
-}
-
-export function StaggerChildren({
-  children,
-  className = "",
-}: StaggerChildrenProps) {
-  // Simplified: just render children without complex stagger animation
-  // The individual items can use FadeIn with different delays if needed
-  return <div className={className}>{children}</div>;
-}
-
-// Keep for backwards compatibility but simplified
-export const fadeInVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};

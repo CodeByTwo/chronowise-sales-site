@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
   SectionWrapper,
   AnimatedHeading,
@@ -16,9 +15,7 @@ const features = [
     title: "Dashboard",
     description:
       "Get a complete overview of your waitlist performance at a glance. Track key metrics, monitor pipeline health, and identify trends.",
-    mockup: (
-      <DashboardMockup />
-    ),
+    mockup: <DashboardMockup />,
   },
   {
     id: "customers",
@@ -26,9 +23,7 @@ const features = [
     title: "Customer Management",
     description:
       "Comprehensive customer profiles with contact details, preferences, purchase history, and communication logs. Everything you need to nurture relationships.",
-    mockup: (
-      <CustomersMockup />
-    ),
+    mockup: <CustomersMockup />,
   },
   {
     id: "pipeline",
@@ -36,9 +31,7 @@ const features = [
     title: "Wishlist Pipeline",
     description:
       "Visual pipeline with six status stages from initial interest to final allocation. Track time on waitlist, prioritise clients, and never miss an opportunity.",
-    mockup: (
-      <PipelineMockup />
-    ),
+    mockup: <PipelineMockup />,
   },
   {
     id: "analytics",
@@ -46,9 +39,7 @@ const features = [
     title: "Analytics",
     description:
       "Understand demand patterns across brands, models, and collections. Make data-driven allocation decisions with beautiful, actionable insights.",
-    mockup: (
-      <AnalyticsMockup />
-    ),
+    mockup: <AnalyticsMockup />,
   },
 ];
 
@@ -219,15 +210,15 @@ export function FeatureShowcase() {
                       {feature.title}
                     </span>
                   </div>
-                  {isActive && (
-                    <motion.p
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      className="mt-4 text-sm text-muted-foreground leading-relaxed"
-                    >
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      isActive ? "max-h-40 opacity-100 mt-4" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {feature.description}
-                    </motion.p>
-                  )}
+                    </p>
+                  </div>
                 </button>
               );
             })}
@@ -246,19 +237,19 @@ export function FeatureShowcase() {
                 <div className="flex-1 h-6 bg-white/5 rounded-md mx-8" />
               </div>
 
-              {/* Content */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={active.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.3 }}
-                  className="aspect-[16/10]"
-                >
-                  {active.mockup}
-                </motion.div>
-              </AnimatePresence>
+              {/* Content - simple crossfade */}
+              <div className="aspect-[16/10] relative">
+                {features.map((feature) => (
+                  <div
+                    key={feature.id}
+                    className={`absolute inset-0 transition-opacity duration-300 ${
+                      feature.id === activeFeature ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
+                  >
+                    {feature.mockup}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
