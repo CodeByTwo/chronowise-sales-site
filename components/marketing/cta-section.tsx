@@ -27,8 +27,11 @@ export function CTASection({
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-[#111113] to-background" />
 
-      {/* Gold glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[150px]" />
+      {/* Gold glow - using gradient instead of blur for performance */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full"
+        style={{ background: "radial-gradient(circle, rgba(198,169,98,0.08) 0%, transparent 70%)" }}
+      />
 
       {/* Border accents */}
       <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />

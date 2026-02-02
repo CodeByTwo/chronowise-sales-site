@@ -14,8 +14,11 @@ export function Hero() {
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-[#111113]" />
 
-        {/* Radial gold glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[150px]" />
+        {/* Radial gold glow - using gradient instead of blur for performance */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(198,169,98,0.08) 0%, transparent 70%)" }}
+        />
 
         {/* Subtle grid pattern */}
         <div

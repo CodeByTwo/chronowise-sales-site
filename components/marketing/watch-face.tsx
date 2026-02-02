@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function WatchFace() {
-  const [date, setDate] = useState<number | null>(null);
-  const secondHandRef = useRef<SVGGElement>(null);
-  const minuteHandRef = useRef<SVGGElement>(null);
-  const hourHandRef = useRef<SVGGElement>(null);
+  const [time, setTime] = useState<{
+    hours: number;
+    minutes: number;
+    seconds: number;
+    date: number;
+  } | null>(null);
 
   useEffect(() => {
     // Get London time
@@ -18,77 +20,37 @@ export function WatchFace() {
         minute: "2-digit",
         second: "2-digit",
         hour12: false,
-        fractionalSecondDigits: 3,
       });
 
-      // Parse London time
-      const [hours, minutes, secondsWithMs] = londonString.split(":");
-      const [seconds, ms] = secondsWithMs.split(".");
+      const [hours, minutes, seconds] = londonString.split(":").map(Number);
 
       return {
-        hours: parseInt(hours) % 12,
-        minutes: parseInt(minutes),
-        seconds: parseInt(seconds),
-        milliseconds: parseInt(ms || "0"),
-        date: new Date(now.toLocaleString("en-US", { timeZone: "Europe/London" })).getDate(),
+        hours: hours % 12,
+        minutes,
+        seconds,
+        date: new Date(
+          now.toLocaleString("en-US", { timeZone: "Europe/London" })
+        ).getDate(),
       };
     };
 
-    // Set initial date
-    const initialTime = getLondonTime();
-    setDate(initialTime.date);
+    // Set initial time
+    setTime(getLondonTime());
 
-    // Animation loop using requestAnimationFrame for smooth 60fps
-    let animationId: number;
+    // Update every second (not 60fps - much lighter on mobile)
+    const interval = setInterval(() => {
+      setTime(getLondonTime());
+    }, 1000);
 
-    const animate = () => {
-      const now = new Date();
+    return () => clearInterval(interval);
+  }, []);
 
-      // Get precise time components for London
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-      // London is UTC+0 in winter, UTC+1 in summer (BST)
-      const londonOffset = new Date().toLocaleString("en-GB", { timeZone: "Europe/London", hour: "numeric", hour12: false });
-      const utcHour = now.getUTCHours();
-      const londonHour = parseInt(londonOffset);
-      const isDST = londonHour !== utcHour;
-      const londonTime = new Date(utc + (isDST ? 3600000 : 0));
+  if (!time) return null;
 
-      const hours = londonTime.getUTCHours() % 12;
-      const minutes = londonTime.getUTCMinutes();
-      const seconds = londonTime.getUTCSeconds();
-      const milliseconds = londonTime.getUTCMilliseconds();
-
-      // Calculate smooth rotation angles
-      const secondAngle = (seconds + milliseconds / 1000) * 6;
-      const minuteAngle = (minutes + (seconds + milliseconds / 1000) / 60) * 6;
-      const hourAngle = (hours + (minutes + seconds / 60) / 60) * 30;
-
-      // Update hand rotations directly via refs
-      if (secondHandRef.current) {
-        secondHandRef.current.style.transform = `rotate(${secondAngle}deg)`;
-      }
-      if (minuteHandRef.current) {
-        minuteHandRef.current.style.transform = `rotate(${minuteAngle}deg)`;
-      }
-      if (hourHandRef.current) {
-        hourHandRef.current.style.transform = `rotate(${hourAngle}deg)`;
-      }
-
-      // Update date once per minute
-      const currentDate = new Date(now.toLocaleString("en-US", { timeZone: "Europe/London" })).getDate();
-      if (currentDate !== date) {
-        setDate(currentDate);
-      }
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(animationId);
-  }, [date]);
-
-  if (date === null) return null;
+  // Calculate rotation angles
+  const secondAngle = time.seconds * 6;
+  const minuteAngle = (time.minutes + time.seconds / 60) * 6;
+  const hourAngle = (time.hours + time.minutes / 60) * 30;
 
   return (
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -100,20 +62,8 @@ export function WatchFace() {
         strokeLinecap="round"
       >
         {/* Outer case */}
-        <circle
-          cx="200"
-          cy="200"
-          r="195"
-          strokeWidth="1"
-          className="text-white"
-        />
-        <circle
-          cx="200"
-          cy="200"
-          r="185"
-          strokeWidth="0.5"
-          className="text-white"
-        />
+        <circle cx="200" cy="200" r="195" strokeWidth="1" className="text-white" />
+        <circle cx="200" cy="200" r="185" strokeWidth="0.5" className="text-white" />
 
         {/* Hour markers */}
         {[...Array(12)].map((_, i) => {
@@ -180,85 +130,47 @@ export function WatchFace() {
           className="fill-white"
           stroke="none"
         >
-          {date}
+          {time.date}
         </text>
 
         {/* Center circle */}
-        <circle
-          cx="200"
-          cy="200"
-          r="8"
-          strokeWidth="1.5"
-          className="text-white"
-        />
-        <circle
-          cx="200"
-          cy="200"
-          r="3"
-          className="fill-white"
-          stroke="none"
-        />
+        <circle cx="200" cy="200" r="8" strokeWidth="1.5" className="text-white" />
+        <circle cx="200" cy="200" r="3" className="fill-white" stroke="none" />
 
         {/* Hour hand */}
         <g
-          ref={hourHandRef}
-          style={{ transformOrigin: "200px 200px" }}
+          style={{
+            transform: `rotate(${hourAngle}deg)`,
+            transformOrigin: "200px 200px",
+            transition: "transform 0.5s cubic-bezier(0.4, 2.3, 0.3, 1)",
+          }}
         >
-          <line
-            x1="200"
-            y1="200"
-            x2="200"
-            y2="110"
-            strokeWidth="4"
-            className="text-white"
-          />
-          <polygon
-            points="200,110 195,130 205,130"
-            className="fill-white"
-            stroke="none"
-          />
+          <line x1="200" y1="200" x2="200" y2="110" strokeWidth="4" className="text-white" />
+          <polygon points="200,110 195,130 205,130" className="fill-white" stroke="none" />
         </g>
 
         {/* Minute hand */}
         <g
-          ref={minuteHandRef}
-          style={{ transformOrigin: "200px 200px" }}
+          style={{
+            transform: `rotate(${minuteAngle}deg)`,
+            transformOrigin: "200px 200px",
+            transition: "transform 0.5s cubic-bezier(0.4, 2.3, 0.3, 1)",
+          }}
         >
-          <line
-            x1="200"
-            y1="200"
-            x2="200"
-            y2="60"
-            strokeWidth="2.5"
-            className="text-white"
-          />
-          <polygon
-            points="200,60 196,80 204,80"
-            className="fill-white"
-            stroke="none"
-          />
+          <line x1="200" y1="200" x2="200" y2="60" strokeWidth="2.5" className="text-white" />
+          <polygon points="200,60 196,80 204,80" className="fill-white" stroke="none" />
         </g>
 
-        {/* Second hand - smooth sweep */}
+        {/* Second hand - CSS transition for smooth sweep effect */}
         <g
-          ref={secondHandRef}
-          style={{ transformOrigin: "200px 200px" }}
+          style={{
+            transform: `rotate(${secondAngle}deg)`,
+            transformOrigin: "200px 200px",
+            transition: "transform 1s linear",
+          }}
         >
-          <line
-            x1="200"
-            y1="230"
-            x2="200"
-            y2="50"
-            strokeWidth="1"
-            className="text-gold"
-          />
-          <circle
-            cx="200"
-            cy="220"
-            r="4"
-            className="fill-gold"
-            stroke="none"
-          />
+          <line x1="200" y1="230" x2="200" y2="50" strokeWidth="1" className="text-gold" />
+          <circle cx="200" cy="220" r="4" className="fill-gold" stroke="none" />
         </g>
       </svg>
     </div>

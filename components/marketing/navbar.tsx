@@ -30,7 +30,7 @@ export function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-white/5"
+          ? "bg-background/95 border-b border-white/5"
           : "bg-transparent"
       }`}
     >
@@ -89,7 +89,7 @@ export function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-white/5"
+            className="md:hidden bg-background border-b border-white/5"
           >
             <div className="px-6 py-6 space-y-4">
               {navLinks.map((link) => (
