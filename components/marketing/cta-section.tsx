@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { FadeIn } from "./section-wrapper";
 
 interface CTASectionProps {
   title?: string;
@@ -35,75 +35,58 @@ export function CTASection({
       <div className="absolute bottom-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <FadeIn>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-foreground tracking-wide">
             {title}
           </h2>
-        </motion.div>
+        </FadeIn>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto"
-        >
-          {description}
-        </motion.p>
+        <FadeIn delay={0.1}>
+          <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
+            {description}
+          </p>
+        </FadeIn>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
-        >
-          <Link href={primaryHref}>
-            <Button
-              size="lg"
-              className="bg-gold hover:bg-gold-light text-background font-medium tracking-wider px-8 h-14 text-base transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 group"
-            >
-              {primaryCTA}
-              <ArrowRight
-                size={18}
-                className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Button>
-          </Link>
-          {secondaryCTA && (
-            <Link href={secondaryHref}>
+        <FadeIn delay={0.2}>
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href={primaryHref}>
               <Button
-                variant="outline"
                 size="lg"
-                className="border-white/20 hover:border-white/40 text-foreground bg-transparent hover:bg-white/5 tracking-wider px-8 h-14 text-base transition-all duration-300"
+                className="bg-gold hover:bg-gold-light text-background font-medium tracking-wider px-8 h-14 text-base transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 group"
               >
-                {secondaryCTA}
+                {primaryCTA}
+                <ArrowRight
+                  size={18}
+                  className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
+                />
               </Button>
             </Link>
-          )}
-        </motion.div>
+            {secondaryCTA && (
+              <Link href={secondaryHref}>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-white/20 hover:border-white/40 text-foreground bg-transparent hover:bg-white/5 tracking-wider px-8 h-14 text-base transition-all duration-300"
+                >
+                  {secondaryCTA}
+                </Button>
+              </Link>
+            )}
+          </div>
+        </FadeIn>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground"
-        >
-          <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            14-day free trial
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            No setup fees
-          </span>
-        </motion.div>
+        <FadeIn delay={0.3}>
+          <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+              14-day free trial
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+              No setup fees
+            </span>
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

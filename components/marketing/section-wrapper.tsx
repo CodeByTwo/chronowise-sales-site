@@ -1,7 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
-import { motion, type Variants } from "framer-motion";
+import { ReactNode, useRef, useEffect, useState } from "react";
 
 interface SectionWrapperProps {
   children: ReactNode;
@@ -41,19 +40,47 @@ export function AnimatedHeading({
   as: Component = "h2",
   gradient = false,
 }: AnimatedHeadingProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Make visible immediately to prevent blank content
+    const timer = setTimeout(() => setIsVisible(true), 50);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: "50px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+      }`}
+      style={{ willChange: "opacity, transform" }}
     >
       <Component
         className={`font-serif tracking-wide ${gradient ? "text-gold-gradient" : ""} ${className}`}
       >
         {children}
       </Component>
-    </motion.div>
+    </div>
   );
 }
 
@@ -70,23 +97,51 @@ export function FadeIn({
   delay = 0,
   direction = "up",
 }: FadeInProps) {
-  const directionOffset = {
-    up: { y: 30 },
-    down: { y: -30 },
-    left: { x: 30 },
-    right: { x: -30 },
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Fallback: make visible after a short delay regardless of intersection
+    const fallbackTimer = setTimeout(() => setIsVisible(true), 100 + delay * 1000);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Apply delay before showing
+          setTimeout(() => setIsVisible(true), delay * 1000);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: "50px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
+  }, [delay]);
+
+  const directionClasses = {
+    up: isVisible ? "translate-y-0" : "translate-y-6",
+    down: isVisible ? "translate-y-0" : "-translate-y-6",
+    left: isVisible ? "translate-x-0" : "translate-x-6",
+    right: isVisible ? "translate-x-0" : "-translate-x-6",
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, ...directionOffset[direction] }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.6, delay, ease: "easeOut" }}
-      className={className}
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ease-out ${
+        isVisible ? "opacity-100" : "opacity-0"
+      } ${directionClasses[direction]} ${className}`}
+      style={{ willChange: "opacity, transform" }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -99,29 +154,14 @@ interface StaggerChildrenProps {
 export function StaggerChildren({
   children,
   className = "",
-  staggerDelay = 0.1,
 }: StaggerChildrenProps) {
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
-          },
-        },
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+  // Simplified: just render children without complex stagger animation
+  // The individual items can use FadeIn with different delays if needed
+  return <div className={className}>{children}</div>;
 }
 
-export const fadeInVariants: Variants = {
+// Keep for backwards compatibility but simplified
+export const fadeInVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,

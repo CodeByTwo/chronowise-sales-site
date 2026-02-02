@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import { FadeIn } from "./section-wrapper";
 
 interface PricingCardProps {
   name: string;
@@ -30,17 +30,14 @@ export function PricingCard({
       : 0;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className={`relative p-8 rounded-2xl transition-all duration-500 ${
-        isPopular
-          ? "bg-card border-2 border-gold/50 shadow-xl shadow-gold/10"
-          : "bg-card border border-white/10 hover:border-white/20"
-      }`}
-    >
+    <FadeIn>
+      <div
+        className={`relative p-8 rounded-2xl transition-all duration-500 ${
+          isPopular
+            ? "bg-card border-2 border-gold/50 shadow-xl shadow-gold/10"
+            : "bg-card border border-white/10 hover:border-white/20"
+        }`}
+      >
       {isPopular && (
         <div className="absolute -top-4 left-1/2 -translate-x-1/2">
           <span className="px-4 py-1.5 rounded-full bg-gold text-background text-xs font-medium tracking-wider uppercase">
@@ -87,6 +84,7 @@ export function PricingCard({
           Get Started
         </Button>
       </Link>
-    </motion.div>
+      </div>
+    </FadeIn>
   );
 }

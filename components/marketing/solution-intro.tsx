@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FadeIn } from "./section-wrapper";
 
 export function SolutionIntro() {
@@ -11,13 +10,7 @@ export function SolutionIntro() {
 
       <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
         <FadeIn>
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-3 h-3 rounded-full bg-gold mx-auto mb-12"
-          />
+          <div className="w-3 h-3 rounded-full bg-gold mx-auto mb-12" />
         </FadeIn>
 
         <FadeIn delay={0.1}>
