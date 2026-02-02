@@ -97,15 +97,11 @@ export function CTASection({
         >
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            14-day trial included
+            14-day free trial
           </span>
           <span className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            No credit card required
-          </span>
-          <span className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-gold" />
-            Cancel anytime
+            No setup fees
           </span>
         </motion.div>
       </div>

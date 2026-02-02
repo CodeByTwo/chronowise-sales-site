@@ -9,6 +9,8 @@ export { FeatureShowcase } from "./feature-showcase";
 export { HowItWorks } from "./how-it-works";
 export { Testimonials } from "./testimonials";
 export { CTASection } from "./cta-section";
+export { PricingCard } from "./pricing-card";
+export { FAQ } from "./faq";
 export {
   SectionWrapper,
   AnimatedHeading,
@@ -16,3 +18,4 @@ export {
   StaggerChildren,
   fadeInVariants,
 } from "./section-wrapper";
+
