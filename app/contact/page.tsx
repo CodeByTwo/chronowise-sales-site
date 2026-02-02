@@ -1,24 +1,67 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 import { Navbar, Footer, SectionWrapper, FadeIn } from "@/components/marketing";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MapPin, Send, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    setError(null);
+
+    if (!turnstileToken) {
+      setError("Please complete the security check.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      company: formData.get("company") as string,
+      phone: formData.get("phone") as string,
+      message: formData.get("message") as string,
+      turnstileToken,
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const result = await response.json();
+        throw new Error(result.error || "Failed to send message");
+      }
+
+      setIsSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again or email us directly."
+      );
+      // Reset turnstile on error
+      turnstileRef.current?.reset();
+      setTurnstileToken(null);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -65,8 +108,8 @@ export default function ContactPage() {
                     Message received
                   </h3>
                   <p className="text-muted-foreground">
-                    Thank you for reaching out. We'll be in touch within one
-                    business day.
+                    Thank you for reaching out. We've sent a confirmation to your
+                    email and will be in touch within one business day.
                   </p>
                 </div>
               ) : (
@@ -141,9 +184,30 @@ export default function ContactPage() {
                     />
                   </div>
 
+                  {/* Turnstile Widget */}
+                  <div className="flex justify-center">
+                    <Turnstile
+                      ref={turnstileRef}
+                      siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                      onSuccess={setTurnstileToken}
+                      onError={() => setTurnstileToken(null)}
+                      onExpire={() => setTurnstileToken(null)}
+                      options={{
+                        theme: "dark",
+                      }}
+                    />
+                  </div>
+
+                  {error && (
+                    <div className="flex items-center gap-3 p-4 rounded-lg bg-red-500/10 border border-red-500/20">
+                      <AlertCircle size={20} className="text-red-400 flex-shrink-0" />
+                      <p className="text-sm text-red-400">{error}</p>
+                    </div>
+                  )}
+
                   <Button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !turnstileToken}
                     className="w-full bg-gold hover:bg-gold-light text-background font-medium tracking-wider h-12 transition-all duration-300 hover:shadow-lg hover:shadow-gold/20 disabled:opacity-50"
                   >
                     {isSubmitting ? (
