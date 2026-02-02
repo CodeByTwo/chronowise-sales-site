@@ -121,8 +121,17 @@ export function Footer() {
             <p className="text-xs text-muted-foreground">
               &copy; {new Date().getFullYear()} ChronoWise. All rights reserved.
             </p>
-            <p className="text-xs text-muted-foreground italic">
-              Made for jewellers, by those who understand luxury retail.
+            <p className="text-xs text-muted-foreground">
+              A{" "}
+              <a
+                href="https://codebytwo.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gold hover:text-gold-light transition-colors duration-300"
+              >
+                CodeByTwo
+              </a>
+              {" "}product
             </p>
           </div>
         </div>

@@ -108,7 +108,15 @@ export default function AboutPage() {
             <FadeIn delay={0.2}>
               <p>
                 As a software developer and co-founder of{" "}
-                <span className="text-foreground">CodeByTwo</span>, I
+                <a
+                  href="https://codebytwo.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold hover:text-gold-light transition-colors duration-300"
+                >
+                  CodeByTwo
+                </a>
+                , I
                 recognised this as a problem I could solve. The industry
                 didn't need another bloated enterprise platform—it needed
                 something modern, intuitive, and purpose-built. A tool that
