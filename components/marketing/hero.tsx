@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { WatchFace } from "./watch-face";
 
 export function Hero() {
   return (
@@ -28,17 +29,10 @@ export function Hero() {
 
         {/* Grain texture */}
         <div className="absolute inset-0 grain-overlay" />
-      </div>
 
-      {/* Floating decorative elements */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.1 }}
-        transition={{ duration: 2, delay: 0.5 }}
-        className="absolute top-1/4 right-[15%] hidden lg:block"
-      >
-        <Clock size={120} className="text-gold" strokeWidth={0.5} />
-      </motion.div>
+        {/* Animated watch face */}
+        <WatchFace />
+      </div>
 
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 py-32 text-center">

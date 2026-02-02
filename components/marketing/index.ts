@@ -1,6 +1,7 @@
 export { Navbar } from "./navbar";
 export { Footer } from "./footer";
 export { Hero } from "./hero";
+export { WatchFace } from "./watch-face";
 export { SocialProofBar } from "./social-proof-bar";
 export { ProblemSection } from "./problem-section";
 export { SolutionIntro } from "./solution-intro";
